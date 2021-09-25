@@ -47,10 +47,10 @@ def pre_add_base_url(folder_path, url_path):
 
     data = data.replace(
         '<head>',
-        f"""
+        """
         <head>
           <base href="{url_path}">
-        """
+        """.format(url_path=url_path)
     )
 
     with codecs.open(join(folder_path, 'index.html'), 'w') as f:
@@ -63,7 +63,7 @@ def make_apidoc_route(folder_path=None, url_path=None, dynamic_url=True):
     pre_add_base_url(folder_path, url_path)
 
     return (
-        rf'{url_path}(.*)',
+        '{url_path}(.*)'.format(url_path=url_path),
         ApiDocHandler,
         {'folder_path': folder_path, 'dynamic_url': dynamic_url}
     )
